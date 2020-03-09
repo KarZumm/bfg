@@ -5,20 +5,17 @@ Random data generator that works with list files.
 listfile.list content
 ---------------------
 
-# comments are marked with starting hash
+comments are marked with starting `#`
 
 IPADDRv4
 
 Internal IP: {INTERNALIPv4}
-
 Public IP: {EXTERNALIPv4}
 
 INTERNALIPv4
 
 172.{#16-21}.{#0-254}.{#1-254}
-
 192.168.{#0-254}.{#1-254}
-
 10.{#0-254}.{#0-254}.{#1-254}
 
 EXTERNALIPv4
