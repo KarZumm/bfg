@@ -1,8 +1,10 @@
 const fs = require('fs')
 
-function init(fileName) {
+function init(fileNames) {
+
     try {
-        this.content = getDataFileContentAsObject(fileName)
+        if(fileNames.length < 1) throw new Error('At least one filename must be specified')
+        this.content = getDataFileContentAsObject(fileNames)
     }
     catch(err) {
         console.error(err.message)
@@ -21,7 +23,10 @@ function generateNonsense(entryList) {
     const isSubstitutionNeeded = function(str) { return (str.match(/\{[^{}]*\}/g) || []).length > 0 }
     const getFirstSubstitionNeeded = function(str) { return str.match(/\{[^{}]*\}/)[0].replace('{', '').replace('}', '') }
 
-    if(!entryList) entryList = 'DEFAULT'
+    if(!entryList) { 
+        console.error('need listname for entrypoint') 
+        process.exit(-1)
+    }
 
     str = listName(entryList)
 
@@ -37,11 +42,11 @@ function generateNonsense(entryList) {
                 tmpArray = subst.replace('[', '').split('|')
                 substw = tmpArray[getRandomIntBetween(0, tmpArray.length)]
                 break
-            case '!':
-                tmpArray = subst.replace('!', '').split(':')
+//            case '!':
+//                tmpArray = subst.replace('!', '').split(':')
 //                substw = new init(tmpArray[0]).generateNonsense(tmpArray[1] || undefined)
-                substw = '[' + subst + ']'
-                break
+//                substw = '[' + subst + ']'
+//                break
             default:
                     try {
                         substw = this.content[subst][getRandomInt(this.content[subst].length)]
@@ -57,20 +62,29 @@ function generateNonsense(entryList) {
     return str
 }
 
-function getDataFileContentAsObject(fileName) {
-    let content = {}
-    let fileContent = fs.readFileSync(fileName).toString().split('\r\n\r\n')
+function getDataFileContentAsObject(fileNames) {
 
-    for(el of fileContent) {
-        let array = el.split('\r\n').filter(word => word.length > 0).filter(word => word[0] != '#')
-        content[array.shift()] = array
+    let finalContent = {}
+
+    for(fileName of fileNames) {
+
+        let content = {}
+        let fileContent = fs.readFileSync(fileName).toString().split('\r\n\r\n')
+
+            for(el of fileContent) {
+                let array = el.split('\r\n').filter(word => word.length > 0).filter(word => word[0] != '#')
+                content[array.shift()] = array
+            }
+
+            for(el in content) {
+                if(content[el].length === 0) delete content[el]
+            }
+
+        finalContent = { ...finalContent, ...content}
+
     }
 
-    for(el in content) {
-        if(content[el].length === 0) delete content[el]
-    }
-
-return content
+return finalContent
 }
 
 module.exports = init

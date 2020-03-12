@@ -1,7 +1,7 @@
 # Jun 4 22:14:15 server1 sshd[41458] : Failed password for root from 10.0.2.2 port 22 ssh2
 
-DEFAULT
-{TIMESTAMP} sshd[{PID}] : Failed password for {USERNAME} {!./data/IP.list:DEFAULT} port 22 sshd2
+SSHDLOGLINE
+{TIMESTAMP} sshd[{PID}] : Failed password for {USERNAME} {IPADDRv4} port 22 sshd2
 
 TIMESTAMP
 {SHORTMONTH} {#1-31} {TIME} {SERVERNAME}

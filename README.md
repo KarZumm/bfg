@@ -8,9 +8,9 @@ Comments in .list files are marked with starting `#`. Comments are, well, commen
 
 ## List file format
 
-if `listName` is not specified then it will default to a list named `DEFAULT`
+`listName` needs to be specified.
 
-|DEFAULT|
+|LISTNAME|
 |-------|
 |{BLOCKNAME}|
 ||
@@ -25,12 +25,9 @@ if `listName` is not specified then it will default to a list named `DEFAULT`
 
 ## Usage
 
-example usage: `node .\example.js --listFile .\data\IP.list --listName IPADDRv4 --count 10`
+example usage: `node .\example.js .\data\SSH.list .\data\IP.list --listName SSHDLOGLINE --count 100`
 
-Works with `IP.list` file and starts working with `IPADDRv4` list and produces `10` results.
-Chooses random line from `IPADDRv4` list. That list produces new random outputs from other lists.
-Result is 10 random internal or external IPv4 IP addresses.
-
+This will read `SSH.list` and `IP.list` files and combines them. Starts parsing blockname of `SSHDLOGLINE` and produces 100 lines.
 
 
 
