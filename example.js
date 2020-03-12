@@ -1,7 +1,7 @@
 const Generator = require('./src/generate')
 
 const argv = require('optimist')
-    .demand(['listFile', 'listName'])
+    .demand(['listFile'])
     .default('count', 1)
     .argv
 

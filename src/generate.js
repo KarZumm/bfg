@@ -14,28 +14,37 @@ function init(fileName) {
 }
 
 function generateNonsense(entryList) {
+
     const listName = function(listName) { return '{' + listName + '}' }
     const getRandomInt = function(max) { return Math.floor(Math.random() * Math.floor(max)) }
     const getRandomIntBetween = function(min, max) { return Math.floor(Math.random() * (max - min) + min) }
     const isSubstitutionNeeded = function(str) { return (str.match(/\{[^{}]*\}/g) || []).length > 0 }
     const getFirstSubstitionNeeded = function(str) { return str.match(/\{[^{}]*\}/)[0].replace('{', '').replace('}', '') }
 
+    if(!entryList) entryList = 'DEFAULT'
+
     str = listName(entryList)
 
     while(isSubstitutionNeeded(str)) {
         subst = getFirstSubstitionNeeded(str)
-            try {
-                if(subst[0] === '#') {
-                    let tmpArray = subst.replace('#', '').split('-')
-                    substw = getRandomIntBetween(Number(tmpArray[0]), Number(tmpArray[1]))
-                }
-                else {
-                    substw = this.content[subst][getRandomInt(this.content[subst].length)]
-                }
-            }
-            catch(err) {
-                substw = `[list ${subst} not found]`
-            }
+
+        switch(subst[0]) {
+            case '#':
+                tmpArray = subst.replace('#', '').split('-')
+                substw = getRandomIntBetween(Number(tmpArray[0]), Number(tmpArray[1]))
+                break
+            case '[':
+                tmpArray = subst.replace('[', '').split('|')
+                substw = tmpArray[getRandomIntBetween(0, tmpArray.length)]
+                break
+            default:
+                    try {
+                        substw = this.content[subst][getRandomInt(this.content[subst].length)]
+                    }
+                    catch(err) {
+                        substw = `[list ${subst} not found]`
+                    }
+        }
 
         str = str.replace('{' + subst + '}', substw)
     }

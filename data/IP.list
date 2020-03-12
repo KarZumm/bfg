@@ -1,4 +1,8 @@
-# IP aadressite template internal ja external
+# IP aadressite template internal ja external v4 või v6
+
+DEFAULT
+{IPADDRv6}
+{IPADDRv4}
 
 IPADDRv4
 Internal IP: {INTERNALIPv4}
@@ -11,3 +15,19 @@ INTERNALIPv4
 
 EXTERNALIPv4
 {#1-254}.{#0-254}.{#0-254}.{#1-254}
+
+IPADDRv6
+IPv6 addr: {BLOCK}:{BLOCK}:{BLOCK}:{BLOCK}:{BLOCK}:{BLOCK}:{BLOCK}:{BLOCK}
+
+BLOCK
+{DIGITORBLOCK}{DIGITORBLOCK}{DIGITORBLOCK}{DIGITORBLOCK}
+
+DIGITORBLOCK
+{DIGIT}
+{LETTER}
+
+DIGIT
+{#0-9}
+
+LETTER
+{[a|b|c|d|e|f}

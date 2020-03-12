@@ -1,25 +1,29 @@
 # README
 
-Random data generator that works with list files.
+Random data generator that works with list files. It takes a .list file as an input and substitutes block content between `{}` brackets with random content from that block.
 
-listfile.list content
----------------------
+## Comments in list files
 
-comments are marked with starting `#`
+Comments in .list files are marked with starting `#`. Comments are, well, comments and ignored.
 
-IPADDRv4 
-Internal IP: {INTERNALIPv4} 
-Public IP: {EXTERNALIPv4} 
- 
-INTERNALIPv4 
-172.{#16-21}.{#0-254}.{#1-254} 
-192.168.{#0-254}.{#1-254} 
-10.{#0-254}.{#0-254}.{#1-254} 
- 
-EXTERNALIPv4 
-{#1-254}.{#0-254}.{#0-254}.{#1-254} 
- 
--------- xx -------- 
+## List file format
+
+if `listName` is not specified then it will default to a list named `DEFAULT`
+
+|DEFAULT|
+|-------|
+|{BLOCKNAME}|
+||
+|BLOCKNAME|
+|blockitem1|
+|blockitem2|
+
+## Special items in listfile
+
+{[item1|item2|item3} <= returns a random item from list
+{#1-100} <= returns a random number between 1-100
+
+## Usage
 
 example usage: `node .\example.js --listFile .\data\IP.list --listName IPADDRv4 --count 10`
 
