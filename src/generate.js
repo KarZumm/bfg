@@ -37,6 +37,11 @@ function generateNonsense(entryList) {
                 tmpArray = subst.replace('[', '').split('|')
                 substw = tmpArray[getRandomIntBetween(0, tmpArray.length)]
                 break
+            case '!':
+                tmpArray = subst.replace('!', '').split(':')
+//                substw = new init(tmpArray[0]).generateNonsense(tmpArray[1] || undefined)
+                substw = '[' + subst + ']'
+                break
             default:
                     try {
                         substw = this.content[subst][getRandomInt(this.content[subst].length)]
