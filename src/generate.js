@@ -1,4 +1,5 @@
 const fs = require('fs')
+const os = require('os')
 
 function init(fileNames) {
 
@@ -69,10 +70,10 @@ function getDataFileContentAsObject(fileNames) {
     for(fileName of fileNames) {
 
         let content = {}
-        let fileContent = fs.readFileSync(fileName).toString().split('\r\n\r\n')
+        let fileContent = fs.readFileSync(fileName).toString().split(os.EOL+os.EOL)
 
             for(el of fileContent) {
-                let array = el.split('\r\n').filter(word => word.length > 0).filter(word => word[0] != '#')
+                let array = el.split(os.EOL).filter(word => word.length > 0).filter(word => word[0] != '#')
                 content[array.shift()] = array
             }
 

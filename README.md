@@ -20,8 +20,8 @@ Comments in .list files are marked with starting `#`. Comments are, well, commen
 
 ## Special items in listfile
 
-{[item1|item2|item3} <= returns a random item from list
-{#1-100} <= returns a random number between 1-100
+* {[item1|item2|item3} <= returns a random item from list
+* {#1-100} <= returns a random number between 1-100
 
 ## Usage
 
